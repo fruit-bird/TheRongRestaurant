@@ -1,0 +1,50 @@
+@model IEnumerable<TheRongRestaurant.RestaurantTable>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@using (Html.BeginForm("Search", "RestaurantTable", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <div class="form-group mb-2">
+        <label for="searchTerm" class="sr-only">Search by Table Name</label>
+        <input type="text" class="form-control" id="searchTerm" name="searchTerm" placeholder="Search by Table Name">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Search</button>
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TableName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsOccupied)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TableName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsOccupied)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
